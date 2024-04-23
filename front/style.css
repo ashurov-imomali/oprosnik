@@ -1,0 +1,70 @@
+header {
+    background-color: #333; /* Тёмно-серый */
+    color: #fff; /* Белый текст */
+    text-align: center;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    left: 0px;
+}
+
+body {
+    background-image: url(instrument-3888684.png);
+    background-size: 100% auto;
+    padding-top: 15%;
+    text-align: center;
+    color: #fff;
+}
+
+footer {
+    padding: 10px;
+    background-color: #222; /* Ещё тёмнее серый */
+    color: #fff; /* Белый текст */
+    text-align: center;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+}
+
+.login-container {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #fff; /* Белая рамка */
+    border-radius: 5px;
+    background-color: #444; /* Серый */
+    color: #fff; /* Белый текст */
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #fff; /* Белая рамка */
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #FFD700; /* Жёлтый */
+    color: #222; /* Тёмный текст */
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #FFC20E; /* Светлый жёлтый */
+}
