@@ -1,6 +1,6 @@
 header {
-    background-color: #afeeee; /* Очень светлый бирюзовый */
-    color: #333; /* Темный текст */
+    background-color: #afeeee;
+    color: #333;
     text-align: center;
     position: fixed;
     top: 0;
@@ -19,8 +19,8 @@ body {
 
 footer {
     padding: 10px;
-    background-color: #afeeee; /* Очень светлый бирюзовый */
-    color: #333; /* Темный текст */
+    background-color: #afeeee;
+    color: #333;
     text-align: center;
     position: fixed;
     bottom: 0;
@@ -32,10 +32,10 @@ footer {
     width: 300px;
     margin: 0 auto;
     padding: 20px;
-    border: 1px solid #ccc; /* Светло-серая рамка */
+    border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #e0ffff; /* Светло-бирюзовый */
-    color: #333; /* Темный текст */
+    background-color: #e0ffff;
+    color: #333;
 }
 
 .login-container h2 {
@@ -50,7 +50,7 @@ footer {
 .input-group input {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc; /* Светло-серая рамка */
+    border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
 }
@@ -61,63 +61,103 @@ button[type="submit"] {
     padding: 10px;
     border: none;
     border-radius: 5px;
-    background-color: #afeeee; /* Очень светлый бирюзовый */
-    color: #333; /* Темный текст */
+    background-color: #afeeee;
+    color: #333;
     cursor: pointer;
 }
 
 button[type="submit"]:hover {
-    background-color: #98f5ff; /* Ещё светлый бирюзовый при наведении */
+    background-color: #98f5ff;
 }
 
-/* style.css */
 
-/* Стили для списка вопросов */
 #questionsList {
-    margin-top: 20px;
+    max-width: 80%;
+    margin: 0 auto 150px;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
 }
 
-/* Стили для отдельного вопроса */
 .question {
+    margin-bottom: 40px; 
+}
+
+
+.question h2 {
+    margin-bottom: 20px;
+    font-size: 24px; 
+}
+
+
+.question p {
+    margin-bottom: 20px; 
+    font-size: 18px; 
+}
+
+
+.buttons {
+    margin-top: 20px; 
+    text-align: center;
+}
+
+
+.buttons button {
+    margin-top: 10px;
+    width: 100%;
+    padding: 12px 24px; 
+    height: 50px;
+    font-size: 18px; 
+    background-color:  #afeeee;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.buttons button:hover {
+    background-color: #08484d93;
+}
+
+.variants input[type="text"] {
+    width: 100%; 
+    padding: 12px; 
+    font-size: 18px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    box-sizing: border-box; 
+}
+
+
+.variants input[type="text"]:focus {
+    outline: none; 
+    border-color: #007bff; 
+}
+
+
+/* Стили для радио кнопок */
+.variants input[type="radio"] {
+    display: none; /* Скрыть саму радио кнопку */
+}
+
+/* Стили для меток радио кнопок */
+.variants label {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 8px 12px;
+    font-size: 16px;
+    cursor: pointer;
     border: 1px solid #ccc;
     border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 20px;
-    background-color: #e0ffff; /* Светло-бирюзовый */
 }
 
-/* Стили для заголовка вопроса */
-.question h2 {
-    font-size: 1.2em;
-    color: #333; /* Темный текст */
-    margin-bottom: 10px;
+
+/* Стили для выбранного варианта */
+.variants input[type="radio"]:checked + label {
+    background-color: #afeeee !important; /* Цвет фона для выбранного варианта */
+    color: #000 !important; /* Цвет текста для выбранного варианта */
+    border-color: #afeeee !important; /* Цвет границы для выбранного варианта */
 }
 
-/* Стили для описания вопроса */
-.question p {
-    color: #666; /* Темно-серый текст */
-    margin-bottom: 10px;
-}
-
-/* Стили для списка вариантов ответов */
-.question ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-/* Стили для каждого варианта ответа */
-.question li {
-    margin-bottom: 5px;
-}
-
-/* Стили для ссылок внутри вариантов ответов */
-.question li a {
-    color: #00f; /* Синий цвет */
-    text-decoration: none;
-}
-
-/* Стили для активной ссылки внутри вариантов ответов */
-.question li a:hover {
-    text-decoration: underline;
-    color: #f00; /* Красный цвет */
-}

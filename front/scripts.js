@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     var loginForm = document.getElementById("loginForm");
-    
+    if(loginForm){
     loginForm.addEventListener("submit", function(event) {
         event.preventDefault(); // Предотвратить отправку формы
         
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }).then((response) => {
          response.json().then((data) => {
             console.log(data.role);
-            if (data.role == 'user'){
+            if (data.role == 'admin'){
                 window.location.href = 'userpage.html';
             }else{
                 
@@ -37,4 +37,5 @@ document.addEventListener("DOMContentLoaded", function() {
 
         console.log("Логин с именем пользователя: " + username + " и паролем: " + password);
     });
+    }
 });
