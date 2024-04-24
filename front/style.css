@@ -1,29 +1,30 @@
 header {
-    background-color: #333; /* Тёмно-серый */
-    color: #fff; /* Белый текст */
+    background-color: #afeeee; /* Очень светлый бирюзовый */
+    color: #333; /* Темный текст */
     text-align: center;
     position: fixed;
-    top: 0px;
+    top: 0;
     width: 100%;
-    left: 0px;
+    left: 0;
+    padding: 10px 0;
 }
 
 body {
-    background-image: url(instrument-3888684.png);
-    background-size: 100% auto;
+    background-image: url(guitar-2886886.jpg);
+    background-size: cover;
     padding-top: 15%;
     text-align: center;
-    color: #fff;
+    color: #333;
 }
 
 footer {
     padding: 10px;
-    background-color: #222; /* Ещё тёмнее серый */
-    color: #fff; /* Белый текст */
+    background-color: #afeeee; /* Очень светлый бирюзовый */
+    color: #333; /* Темный текст */
     text-align: center;
     position: fixed;
-    bottom: 0px;
-    left: 0px;
+    bottom: 0;
+    left: 0;
     width: 100%;
 }
 
@@ -31,10 +32,10 @@ footer {
     width: 300px;
     margin: 0 auto;
     padding: 20px;
-    border: 1px solid #fff; /* Белая рамка */
+    border: 1px solid #ccc; /* Светло-серая рамка */
     border-radius: 5px;
-    background-color: #444; /* Серый */
-    color: #fff; /* Белый текст */
+    background-color: #e0ffff; /* Светло-бирюзовый */
+    color: #333; /* Темный текст */
 }
 
 .login-container h2 {
@@ -49,7 +50,7 @@ footer {
 .input-group input {
     width: 100%;
     padding: 10px;
-    border: 1px solid #fff; /* Белая рамка */
+    border: 1px solid #ccc; /* Светло-серая рамка */
     border-radius: 5px;
     box-sizing: border-box;
 }
@@ -60,11 +61,63 @@ button[type="submit"] {
     padding: 10px;
     border: none;
     border-radius: 5px;
-    background-color: #FFD700; /* Жёлтый */
-    color: #222; /* Тёмный текст */
+    background-color: #afeeee; /* Очень светлый бирюзовый */
+    color: #333; /* Темный текст */
     cursor: pointer;
 }
 
 button[type="submit"]:hover {
-    background-color: #FFC20E; /* Светлый жёлтый */
+    background-color: #98f5ff; /* Ещё светлый бирюзовый при наведении */
+}
+
+/* style.css */
+
+/* Стили для списка вопросов */
+#questionsList {
+    margin-top: 20px;
+}
+
+/* Стили для отдельного вопроса */
+.question {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #e0ffff; /* Светло-бирюзовый */
+}
+
+/* Стили для заголовка вопроса */
+.question h2 {
+    font-size: 1.2em;
+    color: #333; /* Темный текст */
+    margin-bottom: 10px;
+}
+
+/* Стили для описания вопроса */
+.question p {
+    color: #666; /* Темно-серый текст */
+    margin-bottom: 10px;
+}
+
+/* Стили для списка вариантов ответов */
+.question ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Стили для каждого варианта ответа */
+.question li {
+    margin-bottom: 5px;
+}
+
+/* Стили для ссылок внутри вариантов ответов */
+.question li a {
+    color: #00f; /* Синий цвет */
+    text-decoration: none;
+}
+
+/* Стили для активной ссылки внутри вариантов ответов */
+.question li a:hover {
+    text-decoration: underline;
+    color: #f00; /* Красный цвет */
 }

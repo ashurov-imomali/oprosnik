@@ -1,0 +1,48 @@
+#questionsList {
+    margin-top: 20px;
+}
+
+/* Стили для отдельного вопроса */
+.question {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #e0ffff; /* Светло-бирюзовый */
+}
+
+/* Стили для заголовка вопроса */
+.question h2 {
+    font-size: 1.2em;
+    color: #333; /* Темный текст */
+    margin-bottom: 10px;
+}
+
+/* Стили для описания вопроса */
+.question p {
+    color: #666; /* Темно-серый текст */
+    margin-bottom: 10px;
+}
+
+/* Стили для списка вариантов ответов */
+.question ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Стили для каждого варианта ответа */
+.question li {
+    margin-bottom: 5px;
+}
+
+/* Стили для ссылок внутри вариантов ответов */
+.question li a {
+    color: #00f; /* Синий цвет */
+    text-decoration: none;
+}
+
+/* Стили для активной ссылки внутри вариантов ответов */
+.question li a:hover {
+    text-decoration: underline;
+    color: #f00; /* Красный цвет */
+}

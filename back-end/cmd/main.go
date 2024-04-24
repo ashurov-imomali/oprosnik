@@ -17,7 +17,6 @@ func main() {
 	srv := service.InitialSrv(connection)
 	handler := router.InitHandler(srv)
 	routs := router.GetHandlers(handler)
-
 	server := http.Server{Addr: "localhost:8080", Handler: routs}
 	err = server.ListenAndServe()
 	if err != nil {

@@ -19,14 +19,22 @@ document.addEventListener("DOMContentLoaded", function() {
         fetch("http://127.0.0.1:8080/login",{
             body: JSON.stringify(userData),
             method: "POST"
-        }).then(response => response.json)
-        .then(data=>{
-            console.log(data)
-        }).catch(data => {
-            console.log(data)
-        })
+        }).then((response) => {
+         response.json().then((data) => {
+            console.log(data.role);
+            if (data.role == 'user'){
+                window.location.href = 'userpage.html';
+            }else{
+                
+            }
+            }).catch((err) => {
+            console.log(err);
+            })
+       .catch(error => {
+            console.log("error fsdhfkjsdf",error)
+        })})
         // Здесь можно добавить логику для проверки введенных данных или отправки запроса на сервер для аутентификации
-        
+
         console.log("Логин с именем пользователя: " + username + " и паролем: " + password);
     });
 });

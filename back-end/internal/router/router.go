@@ -35,6 +35,9 @@ func (h *Handlers) ping(c *gin.Context) {
 }
 
 func (h *Handlers) ident(c *gin.Context) {
+	c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+	c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT")
+	c.Writer.Header().Set("Access-Control-Allow-Headers", "Origin, Content-Type, Accept")
 	var user models.User
 	err := c.ShouldBindJSON(&user)
 	if err != nil {
@@ -63,6 +66,9 @@ func (h *Handlers) ident(c *gin.Context) {
 }
 
 func (h *Handlers) login(c *gin.Context) {
+	c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+	c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT")
+	c.Writer.Header().Set("Access-Control-Allow-Headers", "Origin, Content-Type, Accept")
 	var user models.User
 	err := c.ShouldBindJSON(&user)
 	if err != nil {
@@ -86,6 +92,10 @@ func (h *Handlers) login(c *gin.Context) {
 }
 
 func (h *Handlers) getQuestions(c *gin.Context) {
+	c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+	c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT")
+	c.Writer.Header().Set("Access-Control-Allow-Headers", "Origin, Content-Type, Accept")
+
 	questions, err := h.Srv.GetQuestions()
 	if err != nil {
 		log.Println(err)
@@ -96,6 +106,9 @@ func (h *Handlers) getQuestions(c *gin.Context) {
 }
 
 func (h *Handlers) updateQuestions(c *gin.Context) {
+	c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+	c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT")
+	c.Writer.Header().Set("Access-Control-Allow-Headers", "Origin, Content-Type, Accept")
 	var newQuest models.Questions
 	err := c.ShouldBindJSON(&newQuest)
 	if err != nil {
@@ -113,6 +126,9 @@ func (h *Handlers) updateQuestions(c *gin.Context) {
 }
 
 func (h *Handlers) deleteQuestions(c *gin.Context) {
+	c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+	c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT")
+	c.Writer.Header().Set("Access-Control-Allow-Headers", "Origin, Content-Type, Accept")
 	strId := c.Param("id")
 	id, err := strconv.Atoi(strId)
 	if err != nil {
