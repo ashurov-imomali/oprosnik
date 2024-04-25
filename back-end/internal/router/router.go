@@ -2,8 +2,10 @@ package router
 
 import (
 	"crypto/md5"
+	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 	"log"
 	"main/internal/service"
 	"main/models"
@@ -51,11 +53,15 @@ func (h *Handlers) ident(c *gin.Context) {
 	}
 	usr, err := h.Srv.CheckNewUser(&user)
 	if err != nil {
-		log.Println(err)
-		c.JSON(http.StatusBadRequest, gin.H{"message": err})
-		return
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			log.Println(err)
+		} else {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"message": err})
+			return
+		}
 	}
-	if usr.Id != 0 {
+	if usr != nil && usr.Id != 0 {
 		log.Println("current user")
 		c.JSON(http.StatusBadRequest, gin.H{"message": "current user"})
 		return

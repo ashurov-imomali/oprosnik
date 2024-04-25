@@ -70,6 +70,21 @@ button[type="submit"]:hover {
     background-color: #98f5ff;
 }
 
+button[type="button"] {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #afeeee;
+    color: #333;
+    cursor: pointer;
+}
+
+button[type="button"]:hover {
+    background-color: #98f5ff;
+}
+
 
 #questionsList {
     max-width: 80%;
@@ -137,13 +152,13 @@ button[type="submit"]:hover {
 }
 
 
-/* Стили для радио кнопок */
+
 .variants input[type="radio"] {
     display: none;
-    /* Скрыть саму радио кнопку */
+
 }
 
-/* Стили для меток радио кнопок */
+
 .variants label {
     display: inline-block;
     margin-right: 10px;
@@ -156,12 +171,13 @@ button[type="submit"]:hover {
 }
 
 
-/* Стили для выбранного варианта */
 .variants input[type="radio"]:checked+label {
     background-color: #afeeee !important;
-    /* Цвет фона для выбранного варианта */
+
     color: #000 !important;
-    /* Цвет текста для выбранного варианта */
+
     border-color: #afeeee !important;
-    /* Цвет границы для выбранного варианта */
+
 }
+
+

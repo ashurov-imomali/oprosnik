@@ -27,6 +27,7 @@ func (s *Service) CheckNewUser(user *models.User) (*models.User, error) {
 }
 
 func (s *Service) CreateUser(user *models.User) (*models.User, error) {
+	user.Role = "user"
 	data := []byte(user.Password)
 	hash := md5.Sum(data)
 	user.Password = fmt.Sprintf("%x", hash)
