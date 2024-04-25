@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
             console.log(data.role);
             if (data.role == 'admin'){
                 localStorage.setItem("user_id", data.user_id)
-                window.location.href = 'userpage.html';
+                window.location.href = '../html/userpage.html';
             }else{
                 
             }
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
    
 });
 function Registred(){
-    window.location.href = 'registred.html'
+    window.location.href = '../html/registred.html'
     
 }
 
@@ -71,7 +71,7 @@ function Done(){
         return response.json();
     }).then(data => {
         console.log(data);
-        window.location.href = "userpage.html";
+        window.location.href = "../html/userpage.html";
     }).catch(error => {
         console.error('Произошла ошибка:', error.message);
         alert("ERROR: " + error.message);
