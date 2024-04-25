@@ -20,3 +20,9 @@ type Questions struct {
 func (Questions) TableName() string {
 	return "questions"
 }
+
+type Answers struct {
+	UserId     int64
+	QuestionId int64
+	Variant    string
+}

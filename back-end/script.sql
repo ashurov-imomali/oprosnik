@@ -62,3 +62,11 @@ VALUES
     ('Есть ли какие-то определенные песни/альбомы, которые ассоциируются у вас с важными событиями или периодами вашей жизни?',
      'Если да, опишите, пожалуйста.',
      NULL);
+
+
+
+create table answers(
+        user_id  integer references users,
+        question_id integer references questions,
+        variant text
+);

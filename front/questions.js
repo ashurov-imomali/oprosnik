@@ -80,6 +80,6 @@ function displayQuestions(questions) {
     inputs.forEach(input => {
       formData[input.name] = input.value;
     });
-
+    formData["user_id"] = localStorage.getItem("user_id")
     console.log(formData);
   }

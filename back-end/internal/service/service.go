@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"gorm.io/gorm"
 	"main/models"
+	"strconv"
 )
 
 type Service struct {
@@ -60,4 +61,29 @@ func (s *Service) UpdateQuestions(quest *models.Questions) (*models.Questions, e
 
 func (s *Service) DeleteQuestions(id int) error {
 	return s.Db.Where("id = ?", id).Delete(&models.Questions{}).Error
+}
+
+func (s *Service) AddAnswers(mp map[string]interface{}) ([]models.Answers, error) {
+	strId := mp["user_id"].(string)
+	delete(mp, "user_id")
+	var ansArray []models.Answers
+	userId, err := strconv.ParseInt(strId, 10, 64)
+	if err != nil {
+		return nil, err
+	}
+	for key, value := range mp {
+		var ans models.Answers
+		questionId, err := strconv.ParseInt(key, 10, 64)
+		if err != nil {
+			return nil, err
+		}
+		ans.UserId = userId
+		ans.QuestionId = questionId
+		ans.Variant = value.(string)
+		ansArray = append(ansArray, ans)
+	}
+	if err := s.Db.Model(&models.Answers{}).Save(ansArray).Error; err != nil {
+		return nil, err
+	}
+	return ansArray, nil
 }

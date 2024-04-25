@@ -22,7 +22,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }).then((response) => {
          response.json().then((data) => {
             console.log(data.role);
-            if (data.role == 'user'){
+            if (data.role == 'admin'){
+                localStorage.setItem("user_id", data.user_id)
                 window.location.href = 'userpage.html';
             }else{
                 

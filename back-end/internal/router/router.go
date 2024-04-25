@@ -21,12 +21,18 @@ func InitHandler(srv *service.Service) *Handlers {
 
 func GetHandlers(h *Handlers) *gin.Engine {
 	r := gin.Default()
+	r.Use(func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Origin, Content-Type, Accept")
+	})
 	r.GET("/ping", h.ping)
 	r.POST("/registration", h.ident)
 	r.POST("/login", h.login)
 	r.GET("/questions", h.getQuestions)
 	r.DELETE("/questions/:id", h.deleteQuestions)
 	r.PUT("/questions", h.updateQuestions)
+	r.POST("/answers", h.getAnswers)
 	return r
 }
 
@@ -35,9 +41,7 @@ func (h *Handlers) ping(c *gin.Context) {
 }
 
 func (h *Handlers) ident(c *gin.Context) {
-	c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
-	c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT")
-	c.Writer.Header().Set("Access-Control-Allow-Headers", "Origin, Content-Type, Accept")
+
 	var user models.User
 	err := c.ShouldBindJSON(&user)
 	if err != nil {
@@ -66,9 +70,6 @@ func (h *Handlers) ident(c *gin.Context) {
 }
 
 func (h *Handlers) login(c *gin.Context) {
-	c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
-	c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT")
-	c.Writer.Header().Set("Access-Control-Allow-Headers", "Origin, Content-Type, Accept")
 	var user models.User
 	err := c.ShouldBindJSON(&user)
 	if err != nil {
@@ -88,13 +89,10 @@ func (h *Handlers) login(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"role": usr.Role})
+	c.JSON(http.StatusOK, gin.H{"role": usr.Role, "user_id": usr.Id})
 }
 
 func (h *Handlers) getQuestions(c *gin.Context) {
-	c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
-	c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT")
-	c.Writer.Header().Set("Access-Control-Allow-Headers", "Origin, Content-Type, Accept")
 
 	questions, err := h.Srv.GetQuestions()
 	if err != nil {
@@ -106,9 +104,7 @@ func (h *Handlers) getQuestions(c *gin.Context) {
 }
 
 func (h *Handlers) updateQuestions(c *gin.Context) {
-	c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
-	c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT")
-	c.Writer.Header().Set("Access-Control-Allow-Headers", "Origin, Content-Type, Accept")
+
 	var newQuest models.Questions
 	err := c.ShouldBindJSON(&newQuest)
 	if err != nil {
@@ -126,9 +122,6 @@ func (h *Handlers) updateQuestions(c *gin.Context) {
 }
 
 func (h *Handlers) deleteQuestions(c *gin.Context) {
-	c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
-	c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT")
-	c.Writer.Header().Set("Access-Control-Allow-Headers", "Origin, Content-Type, Accept")
 	strId := c.Param("id")
 	id, err := strconv.Atoi(strId)
 	if err != nil {
@@ -142,4 +135,24 @@ func (h *Handlers) deleteQuestions(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": err})
 		return
 	}
+}
+
+func (h *Handlers) getAnswers(c *gin.Context) {
+	incomingData := make(map[string]interface{})
+
+	err := c.ShouldBindJSON(&incomingData)
+	if err != nil {
+		log.Println(err)
+		c.JSON(http.StatusBadRequest, gin.H{"message": err})
+		return
+	}
+
+	answers, err := h.Srv.AddAnswers(incomingData)
+	if err != nil {
+		log.Println(err)
+		c.JSON(http.StatusInternalServerError, gin.H{"message": err})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": answers})
 }
