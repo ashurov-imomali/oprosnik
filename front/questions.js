@@ -29,9 +29,9 @@ function displayQuestions(questions) {
           <p>${question.Description}</p>
           <div class="variants">
               ${question.Variants === null || question.Variants === undefined ? 
-                  `<input type="text" placeholder="Введите ответ" onchange="changeColor(this)" required>` :
+                  `<input type="text" name="${question.Id}" id= "${question.Id}" placeholder="Введите ответ" onchange="changeColor(this)" required>` :
                   `${question.Variants.map(variant => `
-                      <input type="radio" id="${variant}" name="${question.Name}" value="${variant}" onchange="changeColor(this)">
+                      <input type="radio" id="${variant}" name="${question.Id}" value="${variant}" onchange="changeColor(this)">
                       <label for="${variant}">${variant}</label>
                   `).join('')}`
               }

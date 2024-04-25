@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }).then((response) => {
          response.json().then((data) => {
             console.log(data.role);
-            if (data.role == 'admin'){
+            if (data.role == 'user'){
                 window.location.href = 'userpage.html';
             }else{
                 

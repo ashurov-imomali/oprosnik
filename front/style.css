@@ -77,28 +77,28 @@ button[type="submit"]:hover {
     padding: 20px;
     border-radius: 5px;
     background-color: #fff;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 .question {
-    margin-bottom: 40px; 
+    margin-bottom: 40px;
 }
 
 
 .question h2 {
     margin-bottom: 20px;
-    font-size: 24px; 
+    font-size: 24px;
 }
 
 
 .question p {
-    margin-bottom: 20px; 
-    font-size: 18px; 
+    margin-bottom: 20px;
+    font-size: 18px;
 }
 
 
 .buttons {
-    margin-top: 20px; 
+    margin-top: 20px;
     text-align: center;
 }
 
@@ -106,10 +106,10 @@ button[type="submit"]:hover {
 .buttons button {
     margin-top: 10px;
     width: 100%;
-    padding: 12px 24px; 
+    padding: 12px 24px;
     height: 50px;
-    font-size: 18px; 
-    background-color:  #afeeee;
+    font-size: 18px;
+    background-color: #afeeee;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -122,24 +122,25 @@ button[type="submit"]:hover {
 }
 
 .variants input[type="text"] {
-    width: 100%; 
-    padding: 12px; 
-    font-size: 18px; 
-    border: 1px solid #ccc; 
-    border-radius: 5px; 
-    box-sizing: border-box; 
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
 
 .variants input[type="text"]:focus {
-    outline: none; 
-    border-color: #007bff; 
+    outline: none;
+    border-color: #007bff;
 }
 
 
 /* Стили для радио кнопок */
 .variants input[type="radio"] {
-    display: none; /* Скрыть саму радио кнопку */
+    display: none;
+    /* Скрыть саму радио кнопку */
 }
 
 /* Стили для меток радио кнопок */
@@ -151,13 +152,16 @@ button[type="submit"]:hover {
     cursor: pointer;
     border: 1px solid #ccc;
     border-radius: 5px;
+    margin-bottom: 10px;
 }
 
 
 /* Стили для выбранного варианта */
-.variants input[type="radio"]:checked + label {
-    background-color: #afeeee !important; /* Цвет фона для выбранного варианта */
-    color: #000 !important; /* Цвет текста для выбранного варианта */
-    border-color: #afeeee !important; /* Цвет границы для выбранного варианта */
+.variants input[type="radio"]:checked+label {
+    background-color: #afeeee !important;
+    /* Цвет фона для выбранного варианта */
+    color: #000 !important;
+    /* Цвет текста для выбранного варианта */
+    border-color: #afeeee !important;
+    /* Цвет границы для выбранного варианта */
 }
-
