@@ -82,7 +82,7 @@ func (s *Service) AddAnswers(mp map[string]interface{}) ([]models.Answers, error
 		ans.Variant = value.(string)
 		ansArray = append(ansArray, ans)
 	}
-	if err := s.Db.Model(&models.Answers{}).Save(ansArray).Error; err != nil {
+	if err := s.Db.Create(ansArray).Error; err != nil {
 		return nil, err
 	}
 	return ansArray, nil
