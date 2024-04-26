@@ -6,15 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit results</title>
     <style>
+        header {
+            background-color: #afeeee;
+            color: #333;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            left: 0;
+            padding: 10px 0;
+        }
+
         body {
             font-family: Helvetica, Arial, sans-serif;
-            margin: 0;
+            /* margin: 0; */
+            margin-top: 10%;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             background-color: #f0f0f0;
+            background-image: url(../images/guitar-2886886.jpg);
+            background-size: cover;
         }
 
         .containerl {
@@ -96,7 +110,10 @@
         }
     </style>
 </head>
-
+<header>
+    <h1>Musical Surveyor</h1>
+    <img src="../images/Plugdj.png" alt="logo" width="50px" height="50px">
+</header>
 <body>
     <div class="containerl">
         <div class="login-box">
@@ -111,7 +128,7 @@
                 </div>
 
                 <div id="editFields"></div>
-                
+
             </form>
         </div>
 
@@ -127,7 +144,7 @@
                 const result = JSON.parse(decodeURIComponent(encodedResult));
                 console.log(result)
                 document.getElementById('username').value = result.FullName;
-              
+
                 const editFieldsContainer = document.getElementById('editFields');
                 result.Questions.forEach((q, index) => {
                     const questionElement = document.createElement('div');
@@ -137,7 +154,7 @@
         
         <hr>
     `;
-    
+
                     editFieldsContainer.appendChild(questionElement);
                     document.getElementById(`openanswer${index}`).value = Array.isArray(q.answer) ? q.answer.join(', ') : q.answer;
                 });
@@ -146,10 +163,10 @@
                     document.getElementById(`openanswer${index}`).value = Array.isArray(q) ? q.join(', ') : q;
                 });
 
-                
+
                 const editForm = document.getElementById('editForm');
-            
-            
+
+
             } else {
                 console.error("No result data provided in URL parameter.");
             }

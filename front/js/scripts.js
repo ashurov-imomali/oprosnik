@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 localStorage.setItem("user_id", data.user_id)
                 window.location.href = '../html/editQ.html';
             }else{
+                localStorage.setItem("user_id", data.user_id)
                 window.location.href = '../html/userpage.html'
             }
             }).catch((err) => {
