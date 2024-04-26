@@ -2,8 +2,10 @@ package service
 
 import (
 	"crypto/md5"
+	"errors"
 	"fmt"
 	"gorm.io/gorm"
+	"log"
 	"main/models"
 	"strconv"
 )
@@ -65,7 +67,11 @@ func (s *Service) DeleteQuestions(id int) error {
 }
 
 func (s *Service) AddAnswers(mp map[string]interface{}) ([]models.Answers, error) {
-	strId := mp["user_id"].(string)
+	strId, ok := mp["user_id"].(string)
+	if !ok {
+		return nil, errors.New("USERID !!!")
+	}
+	log.Println(mp)
 	delete(mp, "user_id")
 	var ansArray []models.Answers
 	userId, err := strconv.ParseInt(strId, 10, 64)

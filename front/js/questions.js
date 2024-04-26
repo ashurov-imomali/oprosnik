@@ -81,11 +81,12 @@ function displayQuestions(questions) {
       formData[input.name] = input.value;
     });
     formData["user_id"] = localStorage.getItem("user_id")
+    console.log(formData["user_id"])
     fetch("http://localhost:8080/answers",{
       body : JSON.stringify(formData),
       method: "POST"
     }).then((response) => {
-      response.json().then((data) => {
+        response.json().then((data) => {
          console.log(data);
          }).catch((err) => {
          console.log(err);
@@ -93,5 +94,7 @@ function displayQuestions(questions) {
     .catch(error => {
          console.log("error fsdhfkjsdf",error)
      })})
+     window.location.href = "../html/login.html";
     console.log(formData);
+    
   }
