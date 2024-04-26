@@ -32,9 +32,10 @@ func GetHandlers(h *Handlers) *gin.Engine {
 	r.POST("/registration", h.ident)
 	r.POST("/login", h.login)
 	r.GET("/questions", h.getQuestions)
-	r.DELETE("/questions/:id", h.deleteQuestions)
-	r.PUT("/questions", h.updateQuestions)
+	r.OPTIONS("/questions/:id", h.deleteQuestions)
+	r.POST("/question/update", h.updateQuestions)
 	r.POST("/answers", h.getAnswers)
+	r.GET("/user/answers", h.getUserAnswers)
 	return r
 }
 
@@ -110,15 +111,17 @@ func (h *Handlers) getQuestions(c *gin.Context) {
 }
 
 func (h *Handlers) updateQuestions(c *gin.Context) {
-
-	var newQuest models.Questions
+	c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+	c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+	c.Writer.Header().Set("Access-Control-Allow-Headers", "Origin, Content-Type, Accept")
+	var newQuest []models.Questions
 	err := c.ShouldBindJSON(&newQuest)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusBadRequest, gin.H{"message": err})
 		return
 	}
-	questions, err := h.Srv.UpdateQuestions(&newQuest)
+	questions, err := h.Srv.UpdateQuestions(newQuest)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusInternalServerError, gin.H{"message": err})
@@ -161,4 +164,15 @@ func (h *Handlers) getAnswers(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": answers})
+}
+
+func (h *Handlers) getUserAnswers(c *gin.Context) {
+
+	answers, err := h.Srv.GetAnswers()
+	if err != nil {
+		log.Println(err)
+		c.JSON(http.StatusInternalServerError, gin.H{"message": err})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": answers})
 }

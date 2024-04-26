@@ -276,3 +276,16 @@ button[type="button"]:hover {
         visibility: hidden;
     }
 }
+
+.check-variant{
+    width: 50%;
+    height: 10px;
+    border-style: solid;
+    border-radius: 8px;
+    border-color: #333;
+    font-size: smaller;
+    padding: 1%;
+    margin-left: 0px; 
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

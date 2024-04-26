@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style/style.css">
+    <title>Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .containerl {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            float: left;
+            background-image: url('third.png');
+            background-blend-mode: multiply;
+            background-size: cover;
+            background-attachment: fixed;
+            padding-top: 100px;
+            padding-bottom: 100px;
+            font-size: 25;
+            font-family: helvetica;
+
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #resultContainer {
+            margin-bottom: 20px;
+
+        }
+
+        .login-box {
+            width: 60%;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .box {
+            height: 60px;
+            width: calc(100% - 20px);
+            background-color: #afeeee;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: large;
+            padding-left: 20px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        i {
+            color: #ffffff;
+            width: 30px;
+            height: 30px;
+        }
+
+        span {
+            color: #ffffff;
+            width: 50px;
+            height: 50px;
+        }
+
+        button {
+            height: 45px;
+            background-color: #afeeee;
+            border-radius: 10px;
+            margin-left: 15px;
+            margin-right: 15px;
+            border-width: 0.5px;
+        }
+
+        .displayed {
+            display: flex;
+            flex-direction: row;
+            margin-right: 80px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #ffffff;
+
+        }
+
+        .ques {
+            width: calc(100% + 10px);
+            height: 50px;
+            background-color: #afeeee;
+            font-size: larger;
+            margin-left: -5px;
+        }
+        p{
+            color: black
+            ;
+        }
+    </style>
+</head>
+<header>
+    <h1>Musical Surveyor</h1>
+    <img src="../images/Plugdj.png" alt="logo" width="50px" height="50px">
+</header>
+
+<body>
+    <div class="containerl">
+        <div class="login-box">
+            <h1>Результаты опроса</h1>
+            <div id="resultContainer">
+
+            </div>
+            <button type="button" class="ques" onclick="nextPage()"><a href="editQ.html">Редактирвать
+                    вопросы</a></button>
+
+        </div>
+
+    </div>
+    <script>
+        var answers = []
+        document.addEventListener("DOMContentLoaded", function () {
+            fetchQuestions();
+        });
+
+        function fetchQuestions() {
+            fetch("http://localhost:8080/user/answers", {
+                method: "GET"
+            }).then((response) => response.json())
+                .then(
+                    data => {
+                        answers = data.data
+                        displayQuestions(data.data);
+                    }
+                )
+                .catch(error => {
+                    console.log("error", error)
+                })
+        }
+        function displayQuestions(results) {
+            const resultContainer = document.getElementById('resultContainer');
+            results.forEach(result => {
+                const resultElement = document.createElement('div');
+                resultElement.classList.add('box');
+                resultElement.innerHTML = `
+                    <p>${result.FullName}</p>
+                    <button class="edit-btn" data-name="${result.FullName}">show</span>
+                    
+                `;
+
+                resultContainer.appendChild(resultElement);
+
+                const editButton = resultElement.querySelector('.edit-btn');
+                editButton.addEventListener('click', () => {
+                    const nameToEdit = editButton.getAttribute('data-name');
+                    navigateToEditPage(nameToEdit);
+                });
+            });
+        }
+        
+        function navigateToEditPage(username) {
+           
+                const resultToEdit = answers.find(result => result.FullName === username);
+
+                if (resultToEdit) {
+                    const encodedResult = encodeURIComponent(JSON.stringify(resultToEdit));
+                    const editPageUrl = `edit.html?result=${encodedResult}`;
+                    window.location.href = editPageUrl;
+                } else {
+                    console.error(`Result with username '${username}' not found.`);
+                }
+          
+        }
+
+        function nextPage() {
+            window.location.href = "editQ.html";
+        }
+    </script>
+</body>
+</html>

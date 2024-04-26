@@ -24,9 +24,9 @@ document.addEventListener("DOMContentLoaded", function() {
             console.log(data.role);
             if (data.role == 'admin'){
                 localStorage.setItem("user_id", data.user_id)
-                window.location.href = '../html/userpage.html';
+                window.location.href = '../html/editQ.html';
             }else{
-                
+                window.location.href = '../html/userpage.html'
             }
             }).catch((err) => {
             console.log(err);

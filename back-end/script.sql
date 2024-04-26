@@ -70,3 +70,22 @@ create table answers(
         question_id integer references questions,
         variant text
 );
+
+
+select *
+from answers;
+
+select u.full_name, q.name, a.variant from
+answers a join users u on a.user_id = u.id join questions q on q.id = a.question_id;
+
+
+
+select *
+from users;
+
+
+select *
+from users;
+
+select *
+from answers;

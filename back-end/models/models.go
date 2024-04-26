@@ -26,3 +26,8 @@ type Answers struct {
 	QuestionId int64
 	Variant    string
 }
+type UserAns struct {
+	FullName  string
+	Questions []string
+	Variants  []string
+}

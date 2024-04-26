@@ -54,7 +54,7 @@ func (s *Service) GetQuestions() ([]models.Questions, error) {
 	return quests, nil
 }
 
-func (s *Service) UpdateQuestions(quest *models.Questions) (*models.Questions, error) {
+func (s *Service) UpdateQuestions(quest []models.Questions) ([]models.Questions, error) {
 	err := s.Db.Model(&models.Questions{}).Save(quest).Error
 	if err != nil {
 		return nil, err
@@ -63,6 +63,11 @@ func (s *Service) UpdateQuestions(quest *models.Questions) (*models.Questions, e
 }
 
 func (s *Service) DeleteQuestions(id int) error {
+	err := s.Db.Where("question_id=?", id).Delete(&models.Answers{}).Error
+	if err != nil {
+		log.Println(err)
+		return err
+	}
 	return s.Db.Where("id = ?", id).Delete(&models.Questions{}).Error
 }
 
@@ -93,4 +98,42 @@ func (s *Service) AddAnswers(mp map[string]interface{}) ([]models.Answers, error
 		return nil, err
 	}
 	return ansArray, nil
+}
+
+type data struct {
+	Question string `gorm:"column:name"`
+	Variant  string `gorm:"column:variant"`
+}
+
+type just struct {
+	FullName string `gorm:"column:full_name"`
+	Id       int64  `json:"id" gorm:"column:id"`
+}
+
+func (s *Service) GetAnswers() ([]models.UserAns, error) {
+	var anss []models.UserAns
+	var j []just
+	err := s.Db.Model(&models.User{}).Where("role=?", "user").
+		Select("full_name, id").Scan(&j).Error
+	if err != nil {
+		return nil, err
+	}
+	log.Println(j)
+	for _, j2 := range j {
+		var data []data
+		var items models.UserAns
+		err = s.Db.Table("answers a").Select("q.name, a.variant").
+			Joins("join questions q on q.id = a.question_id").Where("user_id = ?", j2.Id).
+			Scan(&data).Error
+		if err != nil {
+			return nil, err
+		}
+		for _, datum := range data {
+			items.Questions = append(items.Questions, datum.Question)
+			items.Variants = append(items.Variants, datum.Variant)
+		}
+		items.FullName = j2.FullName
+		anss = append(anss, items)
+	}
+	return anss, nil
 }

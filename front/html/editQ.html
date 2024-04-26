@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit questions</title>
+    <link rel="stylesheet" href="../style/style.css">
+    <style>
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .containerl {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            float: left;
+            background-image: url('third.png');
+            background-blend-mode: multiply;
+            background-size: cover;
+            background-attachment: fixed;
+            padding-top: 100px;
+            padding-bottom: 100px;
+            font-size: 25;
+            font-family: helvetica;
+            width: 100%;
+            height: 100%;
+        }
+
+        .login-box {
+            width: 60%;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        button {
+            width: 100%;
+            height: 40px;
+            background-color: #afeeee;
+            color: #ffffff;
+            font-size: medium;
+            border-width: 1px;
+            border-color: #02366e;
+            border-radius: 5px;
+            border-width: 0.1px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            margin-left: 10px;
+        }
+
+        .box {
+            width: calc(100% - 20px);
+            font-size: large;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: -17px;
+
+        }
+
+        .styled {
+            width: 100%;
+            height: 50px;
+            border-radius: 7px;
+            border-width: 1px;
+            margin-bottom: 5px;
+        }
+
+        span {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .styledChild {
+            width: 60%;
+            height: 40px;
+            border-radius: 7px;
+            border-width: 1px;
+            margin-top: 10px;
+        }
+
+        .quesContainer {
+            background-color: #afeeee;
+            border-radius: 8px;
+            color: #ffffff;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .ques {
+            width: calc(100% + 10px);
+            height: 50px;
+            background-color: #afeeee;
+            font-size: larger;
+            margin-left: -5px;
+        }
+
+        a {
+            text-decoration: none;
+            font-size: medium;
+            color: #02366e;
+        }
+
+        h1 {
+            padding-left: 200px;
+        }
+
+        .variantInput {
+            width: 60%;
+            height: 40px;
+            border-radius: 7px;
+            border-width: 1px;
+        }
+
+        .questionInput {
+            width: 100%;
+            height: 40px;
+            border-radius: 7px;
+            border-width: 1px;
+        }
+
+        .deleteButton {
+            width: 100%;
+            height: 40px;
+            background-color: #afeeee;
+            color: #ffffff;
+            font-size: medium;
+            border-width: 1px;
+            border-color: #02366e;
+            border-radius: 5px;
+            border-width: 0.1px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<header>
+    <h1>Musical Surveyor</h1>
+    <img src="../images/Plugdj.png" alt="logo" width="50px" height="50px">
+</header>
+
+<body>
+    <div class="containerl">
+        <div class="login-box">
+            <span><a href="result.html">Назад</a>
+                <h1>Вопросы</h1>
+            </span>
+            <div id="resultContainer"></div>
+
+            <div id="addContainer"></div>
+            <button type="button" class="ques" onclick="addQuestion()">Добавить вопрос</button>
+
+        </div>
+    </div>
+    <script>
+        var questionList = []
+        document.addEventListener("DOMContentLoaded", function () {
+            fetchQuestions();
+        });
+
+        function fetchQuestions() {
+            fetch("http://localhost:8080/questions", {
+                method: "GET"
+            }).then((response) => response.json())
+                .then(
+                    data => {
+                        questionList = data.data
+                        displayQuestions(questionList);
+                    }
+                )
+                .catch(error => {
+                    console.log("error", error)
+                })
+        }
+
+        function deleteItem(id) {
+            fetch("http://localhost:8080/questions/" + id, {
+                method: "DELETE",
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Ошибка сети');
+                    }
+                    // В случае успешного выполнения запроса
+                    console.log("Вопрос успешно удален");
+                })
+                .catch(error => {
+                    console.error("Ошибка:", error);
+                })
+            location.reload();
+        }
+
+
+        function displayQuestions(questions) {
+            const questionContainer = document.getElementById('resultContainer');
+
+            questions.forEach((question, index) => {
+                const resultElement = document.createElement('div');
+                resultElement.innerHTML = `
+    <div class="quesContainer">
+        <div class="box">
+            <div class="mb-3 mt-3 styled">
+                <input type="text" class="questionInput" id="radiotext${index}" placeholder="" name="text" value = "${question.Name}">
+            </div>
+            <span>
+                <button type="button" onClick="deleteItem('${question.Id}')">delete</button>
+                
+            </span>
+        </div>
+        ${!(question.Variants === null || question.Variants === undefined) ?
+                        `
+                    <h3> Варианты </h3>
+                    ${question.Variants.map(variant => `
+                        <input type="text" class="variantInput" value="${variant}" style="margin-bottom:5px;">
+                    `).join('')}` : ''}
+        
+    </div>`;
+
+                questionContainer.appendChild(resultElement);
+
+            });
+        }
+        // document.getElementById('selectOpen').value = "OpenQuestion"
+        // document.getElementById('selectClose').value = "CloseQuestion"
+
+
+        function getRandomInt(min, max) {
+
+            return Math.floor(Math.random() * (max - min) + min);
+        }
+
+        function addSubAnswers(count) {
+            const Container = document.getElementById(`subAnswers${count}`);
+            const Element = document.createElement('div');
+            Element.innerHTML = `
+            <div class="mb-3 mt-3 styledChild">
+                    <input type="text" class="variantInput" id="ans${count}" placeholder="" name="text">
+                </div>`;
+
+            Container.appendChild(Element);
+        }
+
+
+        function handleSelectChange(event, question, countSub) {
+            const selectedOption = event.target.value;
+            console.log(selectedOption)
+            console.log(question)
+            var options = [];
+            const subAnswerContainer = document.getElementById(`subAnswers${countSub}`);
+            const optionInputs = subAnswerContainer.querySelectorAll('input');
+
+            optionInputs.forEach(input => {
+                if (input.value.trim() !== '') {
+                    options.push(input.value.trim());
+                }
+            });
+            console.log(options)
+            var updateData = []
+
+            if (selectedOption === "OpenQuestion") {
+                updateData.push({ Name: question, Description: "", Variants: [] })
+            } else {
+                updateData.push({ Name: question, Description: "", Variants: options })
+            }
+            console.log(updateData)
+            // const requestOptions = {
+            //     method: "POST",
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify(updateData)
+            // };
+            // console.log(JSON.stringify(updateData))
+
+            fetch("http://127.0.0.1:8080/question/update", {
+                body: JSON.stringify(updateData),
+                method: "POST"
+            }).then((response) => {
+                response.json().then((data) => {
+                    console.log(data);
+                    // if (data.role == 'admin') {
+                    //     localStorage.setItem("user_id", data.user_id)
+                    //     window.location.href = '../html/userpage.html';
+                    // } else {
+
+                    // }
+                }).catch((err) => {
+                    console.log(err);
+                })
+                    .catch(error => {
+                        console.log("error fsdhfkjsdf", error)
+                    })
+            })
+
+            // fetch("http://localhost:8080/questions" + "/update", {
+            //     method: "OPTIONS",
+            //     body: updateData[0]
+            // }).then((response) => response.json())
+            //     .then(
+            //         response => {
+            //             console.log(response.data)
+            //         }
+            //     )
+            //     .catch(error => {
+            //         console.log("error", error)
+            //     })
+            event.target.disabled = true;
+
+        }
+
+        function addQuestion() {
+
+            var count = getRandomInt(1, 82346894);
+            const qContainer = document.getElementById('addContainer');
+            const rElement = document.createElement('div');
+            rElement.innerHTML = `
+            <div class="quesContainer" id="formm${count}">
+                <div class="box">
+                    <div class="mb-3 mt-3 styled">
+                        <input type="text" class="questionInput" id="ques${count}" placeholder="" name="text">
+                    </div>
+                    <span>
+                        <button type="button" class="deleteButton" onClick="deleteItem('${document.getElementById(`ques${count}`)}', '${document.getElementById(`selectQ${count}`)}')">delete</button>
+                        <button onClick = "addSubAnswers(${count})">add</button>
+                        <select class="form-select mt-3" id="selectQ${count}" style="width: 30px; margin-left: 15px; margin-bottom: 20px">
+                            <option value="">Select an option...</option>
+     <option>ClosedQuestion</option>
+     <option>OpenQuestion</option>
+   </select>
+                    </span>             
+            </div>
+            <div id="subAnswers${count}"></div>  </div>`;
+
+            qContainer.appendChild(rElement);
+
+            const selectElement = document.getElementById(`selectQ${count}`);
+            selectElement.addEventListener('change', function (event) {
+                var question = document.getElementById(`ques${count}`).value;
+                var countS = count
+
+                handleSelectChange(event, question, countS);
+            });
+
+        }
+
+    </script>
+</body>
+<footer>
+    <div class="social-media">
+        <a href=""><img src="../images/Instagram New 2022 Line.png" alt="Instagram" width="50px" height="40px"></a>
+        <a href=""><img src="../images/Telegram Messenger New.png" alt="Telegram" width="50px" height="40px"></a>
+        <a href=""><img src="../images/Discord new 2021.png" alt="Discord" width="50px" height="40px"></a>
+        <a href=""><img src="../images/WhatsApp.png" alt="WhatsApp" width="50px" height="40px"></a>
+    </div>
+    <p>&copy; 2024 Musical Surveyor.</p>
+</footer>
+
+</html>
